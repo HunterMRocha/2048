@@ -1,0 +1,34 @@
+								[21/03/2021]
+-------------------------------------------------------------------
+ 
+01:12:25 python
+01:12:25 BOT:  Source: Wikimedia
+
+1991: Python
+
+Named after the British comedy troupe ‘Monty Python’, Python was developed by Guido Van Rossum. Many of the current leading languages are derivatives of C including; C#, Java, JavaScript, Perl, PHP, and Python. It introduced a variety of programming language aspects that are visible languages of today such as Python, Java, and Ruby.
+01:12:29 exit
+01:12:29 > bot shutting down...
+-------------------------------------------------------------------
+
+
+								[21/03/2021]
+-------------------------------------------------------------------
+ 
+01:12:53 java
+01:12:53 BOT:  Source: Wikimedia
+
+1995: Java
+
+Java is a general-purpose, high-level language created by James Gosling for an interactive TV project. Scala’s compatibility with Java makes it helpful with Android development. SQL, Java, HTML/CSS, and .NET/C# rounded out the top 5 in our results.
+01:12:56 apple
+01:12:56 BOT:  Source: Unsplash
+
+Early Microsoft and Apple Programming Languages
+
+Microsoft and Apple are two of the most fundamental companies in the history of programming languages. It also has been/still being used by huge companies like Google, Facebook, and Apple. Pascal was the programming language of choice during the early days of Apple.
+01:13:02 exit
+01:13:02 > bot shutting down...
+-------------------------------------------------------------------
+
+

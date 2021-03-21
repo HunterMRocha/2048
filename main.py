@@ -6,25 +6,31 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 import warnings
+from datetime import datetime
 warnings.filterwarnings('ignore')
 
-# Download punkt package
-nltk.download('punkt', quiet=True) # sentence tokenizer
 
-# get an article to scrape
-article = Article("https://devskiller.com/history-of-programming-languages/")
-article.download()
-article.parse()
-article.nlp()
-corpus = article.text
 
-# print articles text
-# print(corpus)
+def preprocess_data():
+	# Download punkt package
+	nltk.download('punkt', quiet=True) # sentence tokenizer
 
-#tokenization
-text = corpus
-sentence_list = nltk.sent_tokenize(text) # this will give us a list of sentences
-# print(sentence_list)
+	# get an article to scrape
+	article = Article("https://devskiller.com/history-of-programming-languages/")
+	article.download()
+	article.parse()
+	article.nlp()
+	corpus = article.text
+
+	# print articles text
+	# print(corpus)
+
+	#tokenization
+	text = corpus
+	sentence_list = nltk.sent_tokenize(text) # this will give us a list of sentences
+	# print(sentence_list)
+	return text, sentence_list
+
 
 def greet(text):
 	text = text.lower()
@@ -44,15 +50,12 @@ def index_sort(myList):
 	for i in range(length):
 		for j in range(length):
 			if x[list_idx[i]] > x[list_idx[j]]:
-				# swap 
-				temp = list_idx[i]
-				list_idx[i] = list_idx[j]
-				list_idx[j] = temp
+				list_idx[i], list_idx[j] = list_idx[j], list_idx[i]
 
 	return list_idx
 
 
-def bot_response(user_input):
+def bot_response(user_input, sentence_list):
 	user_input = user_input.lower()
 	sentence_list.append(user_input)
 	bot_response = ''
@@ -79,23 +82,41 @@ def bot_response(user_input):
 	sentence_list.remove(user_input)
 	return bot_response 
 
+def update_transcipt(time, user_input=""):
 
-# start the chat
-print("I am bot version 0.1! I will answer your queries about Programming!")
+	with open("transcript.txt", "a") as convo: 
+		convo.write(time + " " + str(user_input) + "\n")
 
-exit_list = ['bye', 'seeyalater', "quit", 'break', 'exit']
 
-while True: 
-	user_input = input()
-	if user_input.lower() in exit_list: 
-		print("bot shutting down...")
-		break
-	else: 
-		if greet(user_input) != None: 
-			print("Bot: " + greet(user_input))
-		else:
-			print("Bot: " + bot_response(user_input))
+	convo.close()
+def main():
 
+	text, sentence_list = preprocess_data()
+	exit_list = ['bye', 'seeyalater', "quit", 'break', 'exit']
+	current_date = datetime.now().strftime("%d/%m/%Y")
+
+	update_transcipt("\t"*8 + "[" + current_date + "]" + "\n-------------------------------------------------------------------\n")
+	print("I am bot version 0.1! I will answer your queries about Programming!")
+	while True: 
+		time = datetime.now().strftime("%H:%M:%S")
+		user_input = input("> ")
+		update_transcipt(time, user_input)
+		if user_input.lower() in exit_list: 
+			print("> BOT shutting down...")
+			update_transcipt(time, "> bot shutting down...\n-------------------------------------------------------------------\n\n")
+			break
+		else: 
+			if greet(user_input) != None: 
+				print("BOT: " + greet(user_input))
+				update_transcipt(time, "BOT: " + greet(user_input))
+				
+			else:
+				print("BOT: " + bot_response(user_input, sentence_list))
+				update_transcipt(time, "BOT: " + bot_response(user_input, sentence_list))
+
+	
+
+main()
 
 
 
